@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { DurableObject } from `cloudflare:workers`;
+import { DurableObject } from "cloudflare:workers";
 
 export class Match extends DurableObject {
   constructor(ctx: DurableObjectState, env: Env) {
@@ -11,16 +11,16 @@ export class Match extends DurableObject {
   }
 }
 
-const app = new Hono();
+const app = new Hono<{ Bindings: CloudflareBindings }>();
 
 app.get("/", (c) => {
   return c.text("Hello Hono!");
 });
 
 app.get("/match", async (c) => {
-  const env = c.env as Bindings;
-  const id = env.MATCH.idFromName("match");
-  const stub = env.MATCH.get(id);
+  const id = c.env.MATCH.idFromName("match");
+  const stub = c.env.MATCH.get(id);
   return stub.fetch("http://example.com/match");
 });
+
 export default app;

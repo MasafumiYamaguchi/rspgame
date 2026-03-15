@@ -12,11 +12,17 @@
   "durable_objects": {
     "bindings": [
       {
-        "name": "Match",
-        "class_name": "MATCH",
+        "name": "MATCH",
+        "class_name": "Match",
       },
     ],
   },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": ["Match"],
+    },
+  ],
   // "r2_buckets": [
   //   {
   //     "binding": "MY_BUCKET",
